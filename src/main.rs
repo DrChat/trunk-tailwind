@@ -1,6 +1,7 @@
 use tracing::{debug, info, warn};
+
 use yew::{function_component, html, Html, Properties};
-use yew_hooks::use_timeout;
+use yew_router::prelude::*;
 
 #[derive(PartialEq, Properties)]
 struct ToastProps {
@@ -64,8 +65,8 @@ fn button(props: &ButtonProps) -> Html {
     }
 }
 
-#[function_component(App)]
-fn app() -> Html {
+#[function_component(Home)]
+fn home() -> Html {
     html! {
         <>
             <section class="h-screen grid-cols-3 grid-rows-3 grid">
@@ -73,11 +74,46 @@ fn app() -> Html {
                     <div class="object-center md:flex-shrink-0">
                         <h1 class="font-bold text-lg text-blue-600">{ "Hello World!" }</h1>
                         <p>{ "This is a Yew app." }</p>
-                        <Button label="Click me!" style={ButtonStyle::Primary} />
+                        <p>{ "Press " }<kbd class="kbd kbd-sm">{"F"}</kbd>{" to pay respects."}</p>
                     </div>
                 </div>
             </section>
         </>
+    }
+}
+
+#[derive(Clone, Routable, PartialEq)]
+enum Route {
+    #[at("/")]
+    Home,
+    #[at("/about")]
+    About,
+}
+
+fn switch(routes: Route) -> Html {
+    match routes {
+        Route::Home => html! { <Home /> },
+        Route::About => html! { {"The quick brown fox jumped over the lazy dog."} },
+    }
+}
+
+#[function_component(App)]
+fn app() -> Html {
+    html! {
+        <BrowserRouter>
+            <div class="drawer drawer-open">
+                <input id="drawer" type="checkbox" class="drawer-toggle" />
+                <div class="drawer-content">
+                    <Switch<Route> render={switch} />
+                </div>
+                <div class="drawer-side">
+                    <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+                        <li><Link<Route> to={Route::Home}>{"Home"}</Link<Route>></li>
+                        <li><Link<Route> to={Route::About}>{"About"}</Link<Route>></li>
+                    </ul>
+                </div>
+            </div>
+        </BrowserRouter>
     }
 }
 
