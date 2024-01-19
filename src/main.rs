@@ -52,6 +52,7 @@ struct ButtonProps {
     style: ButtonStyle,
 }
 
+/// A basic button.
 #[function_component(Button)]
 fn button(props: &ButtonProps) -> Html {
     let classes = ["btn"]
@@ -65,20 +66,22 @@ fn button(props: &ButtonProps) -> Html {
     }
 }
 
+/// This is the "home" page.
 #[function_component(Home)]
 fn home() -> Html {
     html! {
-        <>
-            <section class="h-screen grid-cols-3 grid-rows-3 grid">
-                <div class="mx-auto my-auto p-5 max-w-screen-md overflow-hidden rounded-xl shadow-md row-start-2 col-start-2">
-                    <div class="object-center md:flex-shrink-0">
-                        <h1 class="font-bold text-lg text-blue-600">{ "Hello World!" }</h1>
-                        <p>{ "This is a Yew app." }</p>
-                        <p>{ "Press " }<kbd class="kbd kbd-sm">{"F"}</kbd>{" to pay respects."}</p>
-                    </div>
+        // Create a centered box. The classes here are defined by Tailwind, and the
+        // corresponding CSS is generated at compile-time.
+        // Normally you'd use higher-level components from Daisy UI.
+        <section class="h-screen grid-cols-3 grid-rows-3 grid">
+            <div class="mx-auto my-auto p-5 max-w-screen-md overflow-hidden rounded-xl shadow-md row-start-2 col-start-2">
+                <div class="object-center md:flex-shrink-0">
+                    <h1 class="font-bold text-lg text-blue-600">{ "Hello World!" }</h1>
+                    <p>{ "This is a Yew app." }</p>
+                    <p>{ "Press " }<kbd class="kbd kbd-sm">{"F"}</kbd>{" to pay respects."}</p>
                 </div>
-            </section>
-        </>
+            </div>
+        </section>
     }
 }
 
@@ -90,6 +93,7 @@ enum Route {
     About,
 }
 
+/// This function will render the appropriate page's contents based on the current route.
 fn switch(routes: Route) -> Html {
     match routes {
         Route::Home => html! { <Home /> },
@@ -97,13 +101,19 @@ fn switch(routes: Route) -> Html {
     }
 }
 
+/// The top-level component for the application.
 #[function_component(App)]
 fn app() -> Html {
     html! {
         <BrowserRouter>
+            // Render a drawer that links to a couple of pages.
+            // https://daisyui.com/components/drawer/
             <div class="drawer drawer-open">
                 <input id="drawer" type="checkbox" class="drawer-toggle" />
                 <div class="drawer-content">
+                    // This is the actual magic from `yew-router` that will determine the active
+                    // page to be rendered, based on the current URL.
+                    // https://yew.rs/docs/concepts/router
                     <Switch<Route> render={switch} />
                 </div>
                 <div class="drawer-side">
