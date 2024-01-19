@@ -1,0 +1,12 @@
+/*
+!/src
+!/static
+!/.gitignore
+!/Cargo.lock
+!/Cargo.toml
+!/index.html
+!/package-lock.json
+!/package.json
+!/tailwind.config.js
+!/tailwind.css
+!/Trunk.toml
