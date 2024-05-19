@@ -1,7 +1,7 @@
 # Yew web app for Rust using Tailwind + DaisyUI
-* Yew: https://yew.rs/
-* Tailwind: https://tailwindcss.com/
-* DaisyUI: https://daisyui.com/
+* [Yew](https://yew.rs/): A Rust framework for creating webapps in WebAssembly
+* [Tailwind](https://tailwindcss.com/): A CSS UI framework akin to Twitter's Bootstrap
+* [DaisyUI](https://daisyui.com/): A layer on top of Tailwind that provides common components
 
 This project integrates a bunch of popular frameworks and tools to provide an example for quickly creating a web UI using Rust.
 
