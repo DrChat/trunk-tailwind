@@ -1,8 +1,7 @@
-use tracing::{debug, info, warn};
-
-use yew::{classes, function_component, html, Html, Properties};
+use yew::{function_component, html, Html, Properties};
 use yew_router::prelude::*;
 
+#[allow(dead_code, unused_imports)]
 mod components;
 
 #[derive(PartialEq, Properties)]
@@ -83,13 +82,7 @@ fn app() -> Html {
 }
 
 fn main() {
-    use tracing_subscriber::{
-        fmt::{
-            format::{FmtSpan, Pretty},
-            time::UtcTime,
-        },
-        prelude::*,
-    };
+    use tracing_subscriber::{fmt::format::Pretty, prelude::*};
 
     // Set up logging to the web console.
     let fmt_layer = tracing_subscriber::fmt::layer()
